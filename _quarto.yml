@@ -1,0 +1,34 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "Joe Corra"
+  favicon: images/favicon.png
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: projects.qmd
+        text: Projects
+      - href: publications.qmd
+        text: Publications
+      - href: cv.qmd
+        text: CV
+    right:
+      - icon: github
+        href: https://github.com/joecorra   # update with your actual GitHub handle
+      - icon: linkedin
+        href: https://linkedin.com/in/joecorra  # update with your actual LinkedIn URL
+  page-footer:
+    center: |
+      © 2025 Joe Corra &nbsp;·&nbsp; Built with [Quarto](https://quarto.org)
+
+format:
+  html:
+    theme:
+      - cosmo
+      - styles/custom.scss
+    css: styles/custom.css
+    toc: false
+    smooth-scroll: true

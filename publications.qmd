@@ -1,0 +1,43 @@
+---
+title: "Publications"
+---
+
+```{=html}
+<div class="pub-entry">
+  <div class="pub-title">
+    Summertime methane and carbon dioxide emission rates and associated variables 
+    from a national-scale survey of 146 reservoirs in the United States
+  </div>
+  <div class="pub-journal">Limnology and Oceanography Letters</div>
+  <div class="pub-year">Forthcoming</div>
+</div>
+
+<div class="pub-entry">
+  <div class="pub-title">
+    A review of bird community metrics as indicators of restoration in 
+    freshwater-riparian ecosystems
+  </div>
+  <div>Corra et al.</div>
+  <div class="pub-journal">Restoration Ecology</div>
+  <div class="pub-year">2026</div>
+  <!-- Add DOI link when available: <a href="https://doi.org/...">DOI →</a> -->
+</div>
+
+<div class="pub-entry">
+  <div class="pub-title">
+    Temperature and land use influence tree swallow individual health
+  </div>
+  <div>Corra et al.</div>
+  <div class="pub-journal">Conservation Physiology</div>
+  <div class="pub-year">2021</div>
+</div>
+
+<div class="pub-entry">
+  <div class="pub-title">
+    Urbanization mediates the effects of water quality and climate on a model 
+    aerial insectivorous bird
+  </div>
+  <div class="pub-journal">Ecological Monographs</div>
+  <div class="pub-year">2021</div>
+</div>
+```

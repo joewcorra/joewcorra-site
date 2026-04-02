@@ -1,0 +1,163 @@
+/*-- scss:defaults --*/
+
+// Colors
+$body-bg: #ffffff;
+$body-color: #2c2c2c;
+$link-color: #2a6496;
+$navbar-bg: #ffffff;
+$navbar-fg: #2c2c2c;
+$footer-bg: #f8f8f8;
+
+// Typography
+$font-family-sans-serif: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
+$headings-font-family: "Source Serif Pro", Georgia, serif;
+$font-size-base: 1.05rem;
+$headings-color: #1a1a1a;
+$headings-font-weight: 600;
+
+/*-- scss:rules --*/
+
+// Navbar refinements
+.navbar {
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: none;
+}
+
+.navbar-brand {
+  font-family: $headings-font-family;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+// Landing page layout
+.about-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+.about-photo img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e8e8e8;
+}
+
+.about-text h1 {
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+// Project cards
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.4rem;
+  margin-top: 1.5rem;
+}
+
+.project-card {
+  border: 1px solid #e4e4e4;
+  border-radius: 8px;
+  padding: 1.3rem 1.4rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  background: #fff;
+}
+
+.project-card:hover {
+  box-shadow: 0 3px 14px rgba(0,0,0,0.09);
+  border-color: #c8d8e8;
+}
+
+.project-card h4 {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+  font-size: 1.05rem;
+  font-family: $headings-font-family;
+}
+
+.project-card .project-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #2a6496;
+  background: #edf4fb;
+  border-radius: 4px;
+  padding: 2px 7px;
+  margin-bottom: 0.6rem;
+}
+
+.project-card p {
+  font-size: 0.92rem;
+  color: #555;
+  margin-bottom: 0.8rem;
+  line-height: 1.5;
+}
+
+.project-card .card-links a {
+  font-size: 0.85rem;
+  margin-right: 0.8rem;
+  color: $link-color;
+  text-decoration: none;
+}
+
+.project-card .card-links a:hover {
+  text-decoration: underline;
+}
+
+// Publications
+.pub-entry {
+  margin-bottom: 1.4rem;
+  padding-bottom: 1.4rem;
+  border-bottom: 1px solid #efefef;
+}
+
+.pub-entry:last-child {
+  border-bottom: none;
+}
+
+.pub-title {
+  font-weight: 600;
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+
+.pub-journal {
+  font-style: italic;
+  color: #555;
+  font-size: 0.92rem;
+}
+
+.pub-year {
+  color: #888;
+  font-size: 0.88rem;
+}
+
+// CV page
+.cv-section {
+  margin-bottom: 2rem;
+}
+
+.cv-section h3 {
+  border-bottom: 2px solid #2a6496;
+  padding-bottom: 0.3rem;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #2a6496;
+}
+
+// Responsive: stack on mobile
+@media (max-width: 640px) {
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
