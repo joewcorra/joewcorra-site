@@ -26,9 +26,7 @@ quarto::quarto_preview()
 ## Deploying
 
 Easiest options:
-- **Quarto Pub** (free): `quarto publish quarto-pub` from terminal
 - **GitHub Pages**: `quarto publish gh-pages`
-- **Netlify**: connect your GitHub repo, set build command to `quarto render`
 
 ## Structure
 

@@ -6,38 +6,52 @@ title: "Publications"
 <div class="pub-entry">
   <div class="pub-title">
     Summertime methane and carbon dioxide emission rates and associated variables 
-    from a national-scale survey of 146 reservoirs in the United States
+    from a national-scale survey of 146 reservoirs in the United States.
   </div>
+  <div class="pub-authors">Beaulieu, J. J., B. R. Deemer, R. M. Pilla, K. J. Forshay, J. W. Hollister, 
+    S. A. Jacobs, J. T. Walker, P. T. Leinenbach, N. A. Griffiths, S. D. Shivers, 
+    A. O. Tatters, K. N. Buckler, J. W. Corra, R. W. Daly, A. N. Djurkovic, 
+    S. R. Fulgham, P. L. Goodwin, L. G. Herger, M. W. Jones, N. J. Jones, 
+    L. A. Juilfs, C. M. Langstroth, M. E. Mitchell, J. R. Oliveira, B. M. Richmond, 
+    and J. W. Schroeder.</div>
   <div class="pub-journal">Limnology and Oceanography Letters</div>
-  <div class="pub-year">Forthcoming</div>
+  <div class="pub-year">March 2026</div>
+  <a href="https://doi.org/10.1002/lol2.70080">https://doi.org/10.1002/lol2.70080</a>.
 </div>
 
 <div class="pub-entry">
   <div class="pub-title">
     A review of bird community metrics as indicators of restoration in 
-    freshwater-riparian ecosystems
+    freshwater-riparian ecosystems.
   </div>
-  <div>Corra et al.</div>
+  <div class="pub-authors">Corra, J., T. Newcomer‐Johnson, T. Hollenhorst, M. Kravitz, J. Lazorchak, 
+    M. Mills, and D. Sullivan.</div>
   <div class="pub-journal">Restoration Ecology</div>
-  <div class="pub-year">2026</div>
-  <!-- Add DOI link when available: <a href="https://doi.org/...">DOI →</a> -->
+  <div class="pub-year">February 2026</div>
+  <a href="https://doi.org/10.1111/rec.70350">https://doi.org/10.1111/rec.70350</a>.
 </div>
 
 <div class="pub-entry">
   <div class="pub-title">
-    Temperature and land use influence tree swallow individual health
+    Temperature and land use influence tree swallow individual health.
   </div>
-  <div>Corra et al.</div>
+  <div class="pub-authors">Corra, J., and S. M. P. Sullivan.</div>
   <div class="pub-journal">Conservation Physiology</div>
-  <div class="pub-year">2021</div>
+  <div class="pub-year">May 2021</div>
+  <a href="https://doi.org/10.1093/conphys/coab084">https://doi.org/10.1093/conphys/coab084</a>.
 </div>
 
 <div class="pub-entry">
   <div class="pub-title">
     Urbanization mediates the effects of water quality and climate on a model 
-    aerial insectivorous bird
+    aerial insectivorous bird.
   </div>
+  <div class="pub-authors">Sullivan, S. M. P.,  Corra, J., and Hayes, J.</div>
   <div class="pub-journal">Ecological Monographs</div>
-  <div class="pub-year">2021</div>
+  <div class="pub-year">November 2021</div>
+  <a href="https://doi.org/10.1002/ecm.1442">https://doi.org/10.1002/ecm.1442</a>.
 </div>
 ```
+
+
+

@@ -15,8 +15,8 @@ title: "Curriculum Vitae"
     Quantitative scientist specializing in the design and development of reproducible 
     analytical systems for environmental data. Core strengths in data pipeline 
     architecture, open-source tooling, and methodology-driven workflows applied in 
-    the GHG emissions and climate domain. Domain experience spans HFC and refrigerant 
-    accounting, fossil fuel combustion emissions, and reservoir GHG emissions.
+    the GHG emissions and climate domain. Domain experience spans HFC
+    accounting, fossil fuel combustion emissions, aquatic ecology, avian ecology, and aquatic GHG emissions.
   </p>
 </div>
 
@@ -54,6 +54,14 @@ title: "Curriculum Vitae"
     </span>
   </p>
 
+    <strong>Lead Songbird Survey Technician</strong><br/>
+    AIS Observers, Inc. &nbsp;·&nbsp; Jun 2019 – Jul 2019<br/>
+    <span style="font-size:0.92rem; color:#555;">
+      Supervised two technicians and managed schedules to ensure completion of over 600 surveys
+across 202 sites.
+    </span>
+  </p>
+  
   <p>
     <strong>Avionics Technician (Active Guard Reserve)</strong><br/>
     New York Air National Guard, 109th Airlift Wing &nbsp;·&nbsp; Nov 2006 – Aug 2016
@@ -101,7 +109,7 @@ title: "Curriculum Vitae"
   <p>
     Summertime methane and carbon dioxide emission rates and associated variables from 
     a national-scale survey of 146 reservoirs in the United States. 
-    <em>Limnology and Oceanography Letters.</em> Forthcoming.
+    <em>Limnology and Oceanography Letters.</em> 2026.
   </p>
   <p>
     Corra et al. A review of bird community metrics as indicators of restoration in 
