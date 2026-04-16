@@ -1,19 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://joewcorra.com/publications.html</loc>
-    <lastmod>2026-04-03T16:27:02.619Z</lastmod>
+    <loc>https://joewcorra.com/technical_writing.html</loc>
+    <lastmod>2026-04-16T23:45:04.719Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joewcorra.com/projects.html</loc>
+    <lastmod>2026-04-03T21:10:52.839Z</lastmod>
   </url>
   <url>
     <loc>https://joewcorra.com/index.html</loc>
-    <lastmod>2026-04-08T15:16:14.939Z</lastmod>
+    <lastmod>2026-04-15T23:40:52.078Z</lastmod>
   </url>
   <url>
     <loc>https://joewcorra.com/cv.html</loc>
     <lastmod>2026-04-03T16:32:12.161Z</lastmod>
   </url>
   <url>
-    <loc>https://joewcorra.com/projects.html</loc>
-    <lastmod>2026-04-03T21:10:52.839Z</lastmod>
+    <loc>https://joewcorra.com/posts/ghg-skills.html</loc>
+    <lastmod>2026-04-16T23:43:51.241Z</lastmod>
+  </url>
+  <url>
+    <loc>https://joewcorra.com/publications.html</loc>
+    <lastmod>2026-04-03T16:27:02.619Z</lastmod>
   </url>
 </urlset>
