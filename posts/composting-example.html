@@ -216,18 +216,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="what-this-is" class="level2">
 <h2 class="anchored" data-anchor-id="what-this-is">What this is</h2>
 <p>This page shows a single source category — composting — compiled two ways at once: as a <strong>methodology narrative</strong> written in plain language, and as the <strong>R pipeline generated from it</strong>.</p>
-<p>The narrative is the source of truth. A domain expert authors it, and it describes the methodology completely — data sources, factors, calculation steps, decision rules, and uncertainty — without any code. The R pipeline beneath it is a derived artifact: generated from the narrative and following a fixed set of project conventions. When the methodology changes, the narrative changes, and the code is regenerated. The narrative outlives any particular tool generation; the code is disposable.</p>
-<p>This narrative was distilled from the composting source category’s compiler’s manual — the operational documentation prepared by the inventory team — reducing roughly two pages of methodology from a much longer document into the structured form below. The pipeline was then generated from that narrative.</p>
-<p>Composting is deliberately a simple category: one activity driver (the mass of waste composted), two gases, and an IPCC Tier 1 method. That makes it a clean illustration of the workflow from end to end.</p>
+<p>The narrative is the source of truth. A domain expert authors it, and it describes the methodology completely and precisely— data sources, factors, calculation steps, decision rules, and uncertainty — without any code. The R pipeline beneath it is a derived artifact: generated from the narrative and following a fixed set of project conventions (here, a set of instructions for coding in R). When the methodology changes, the narrative changes, and the code is regenerated. The <strong>methodology narrative</strong> persists and outlives the code.</p>
+<p>This narrative was distilled from the composting source category’s published methodology. The pipeline was then generated from that narrative.</p>
+<p>I selected composting because it’s a simple category: one activity driver (the mass of waste composted), two gases, and an IPCC Tier 1 method. That makes it a clean illustration of the workflow from end to end.</p>
 <blockquote class="blockquote">
-<p>The code shown here demonstrates the narrative-to-code step. A production compilation adds a validation and reconciliation layer — automated data checks and a comparison of pipeline output against the published inventory estimate — which is part of the workflow but not shown in this example.</p>
+<p>The code shown here demonstrates the narrative-to-code step. A production compilation adds a validation layer — which is part of the workflow but not shown in this example. Further, production code will also include various outputs: writing to CRT tables, Quarto reports, ggplot figures, etc., which are not included here.</p>
 </blockquote>
 </section>
 <section id="the-methodology-narrative" class="level2">
 <h2 class="anchored" data-anchor-id="the-methodology-narrative">The methodology narrative</h2>
 <p>This is the authored artifact — the source of truth. Everything in the code section that follows was generated from it.</p>
 <blockquote class="blockquote">
-<p>Drafted from the Composting Compiler’s Manual (v3.1). Conforms to the Methodology Narrative Standard v0.4. Emission-factor values are the 2006 IPCC defaults; confirm against the GHGIA 2026 chapter and the moisture basis it uses before compilation.</p>
+<p>Conforms to Joe’s Claude SKILL.md Methodology Narrative Standard v0.4. Emission-factor values are the 2006 IPCC defaults.</p>
 </blockquote>
 <section id="identification" class="level3">
 <h3 class="anchored" data-anchor-id="identification">Identification</h3>
