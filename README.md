@@ -1,6 +1,6 @@
 # joewcorra-site
 
-Personal Quarto website. Portfolio only — no blog.
+Personal Quarto website. 
 
 ## Setup
 
