@@ -2,9 +2,9 @@
 title: "Curriculum Vitae"
 ---
 
-<a href="cv/resume_corra_j.pdf" download style="font-size:0.9rem;">
-  ⬇ Download PDF
-</a>
+<!-- <a href="cv/resume_corra_j.pdf" download style="font-size:0.9rem;"> -->
+<!--   ⬇ Download PDF -->
+<!-- </a> -->
 
 ---
 
@@ -12,8 +12,8 @@ title: "Curriculum Vitae"
 <div class="cv-section">
   <h3>Summary</h3>
   <p>
-    Quantitative scientist specializing in the design and development of reproducible 
-    analytical systems for environmental data. Core strengths in data pipeline 
+    Environmental data scientist specializing in the design and development of reproducible 
+    analytical systems. Core strengths in data pipeline 
     architecture, open-source tooling, and methodology-driven workflows applied in 
     the GHG emissions and climate domain. Domain experience spans HFC
     accounting, fossil fuel combustion emissions, aquatic ecology, avian ecology, and aquatic GHG emissions.

@@ -1,0 +1,24 @@
+---
+title: "Technical Writing"
+---
+
+::: {.writing-list}
+::: {.writing-entry}
+#### From Methodology Narrative to Code: A Worked Example
+::: {.writing-meta}
+[Technical]{.writing-tag} [2026]{.writing-venue}
+:::
+::: {.writing-links}
+[Read →](posts/composting-example.qmd)
+:::
+:::
+::: {.writing-entry}
+#### Interpretation: Translating Methodology to Code at Scale
+::: {.writing-meta}
+[Technical]{.writing-tag} [2026]{.writing-venue}
+:::
+::: {.writing-links}
+[Read →](posts/ghg-skills.qmd)
+:::
+:::
+:::

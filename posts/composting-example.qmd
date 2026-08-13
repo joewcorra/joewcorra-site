@@ -1,0 +1,360 @@
+---
+title: "From Methodology Narrative to Code: A Worked Example"
+subtitle: "Composting (CH₄ and N₂O), U.S. Greenhouse Gas Inventory"
+date: 2026-06-26
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    code-overflow: wrap
+---
+
+## What this is
+
+This page shows a single source category — composting — compiled two ways at
+once: as a **methodology narrative** written in plain language, and as the **R
+pipeline generated from it**.
+
+The narrative is the source of truth. A domain expert authors it, and it
+describes the methodology completely and precisely— data sources, factors, 
+calculation steps, decision rules, and uncertainty — without any code. The R 
+pipeline beneath it is a derived artifact: generated from the narrative and 
+following a fixed set of project conventions (here, a set of instructions for 
+coding in R). When the methodology changes, the narrative changes, and the code 
+is regenerated. The **methodology narrative** persists and outlives the code. 
+
+This narrative was distilled from the composting source category's published methodology. 
+The pipeline was then generated from that narrative.
+
+I selected composting because it's a simple category: one activity driver (the mass of
+waste composted), two gases, and an IPCC Tier 1 method. That makes it a clean
+illustration of the workflow from end to end.
+
+> The code shown here demonstrates the narrative-to-code step. A production
+> compilation adds a validation layer — which is part of the workflow but not shown in this example. 
+> Further, production code will also include various outputs: writing to CRT tables,
+> Quarto reports, ggplot figures, etc., which are not included here.
+
+## The methodology narrative
+
+This is the authored artifact — the source of truth. Everything in the code
+section that follows was generated from it.
+
+>  Conforms to Joe's Claude SKILL.md Methodology Narrative Standard v0.4. 
+> Emission-factor values are the 2006 IPCC defaults.
+
+### Identification
+
+- **Category:** Composting — CH₄ and N₂O
+- **Sector:** Waste (IPCC 4.B, Biological Treatment of Solid Waste)
+- **Inventory edition:** GHGIA 2026
+- **Author:** [Waste source lead]
+- **Last revised:** [date]
+
+### What this category covers
+
+This category covers methane and nitrous oxide emitted at commercial composting
+facilities, where organic waste is composted to divert it from disposal in
+municipal solid waste landfills.
+
+It does **not** cover: carbon dioxide from composting (biogenic, excluded from
+national totals by convention); emissions from the landfilling of waste that is
+*not* composted ([landfill category]); or home or non-commercial composting,
+which is not estimated.
+
+### Data sources
+
+- **Quantity of waste composted**, from EPA's *Advancing Sustainable Materials
+  Management: Facts and Figures* report (formerly *MSW: Facts & Figures*).
+  *Short label:* `epa_asmm_composted`. Primary activity data, covering 1990–2018,
+  reported on a wet (as-received) weight basis.
+- **U.S. resident population**, from the U.S. Census Bureau annual population
+  estimates (U.S., regions, states, and Puerto Rico). *Short label:*
+  `census_population`. Used to extrapolate waste composted beyond the last
+  measured year.
+
+### Emission factors and other fixed values
+
+- **IPCC default CH₄ emission factor** for composting: 4 g CH₄ per kg waste
+  (wet weight). Source: 2006 IPCC Guidelines, Vol. 5, Ch. 4, Table 4.1.
+- **IPCC default N₂O emission factor** for composting: 0.3 g N₂O per kg waste
+  (wet weight). Source: 2006 IPCC Guidelines, Vol. 5, Ch. 4, Table 4.1.
+- **Global warming potentials** (AR5) for CH₄ and N₂O (dimensionless).
+
+Both emission factors are on a **wet-weight basis**, matching the moisture basis
+of `epa_asmm_composted`; the two must agree, since a wet-weight factor applied to
+dry-weight activity data (or vice versa) is wrong by roughly a factor of two.
+
+### Units
+
+Datasets:
+
+- `epa_asmm_composted` — native: thousand short tons; canonical: Gg.
+- `census_population` — native: persons; canonical: persons (no conversion).
+
+Dimensioned constants:
+
+- CH₄ emission factor — native basis: g CH₄ / kg waste; canonical basis:
+  Gg CH₄ / Gg waste.
+- N₂O emission factor — native basis: g N₂O / kg waste; canonical basis:
+  Gg N₂O / Gg waste.
+
+Both factors are normalized to their canonical bases at ingestion, alongside the
+activity data, so the calculation steps are unitless. Emissions are reported in
+Gg of CH₄ and N₂O, and as CO₂-equivalent for summary tables.
+
+### Connections to other categories
+
+- **Upstream:** none. Composting takes no inputs computed by other categories.
+- **Downstream:** category totals feed the Waste-sector and national CH₄ and N₂O
+  summaries.
+
+(Composting diverts waste that would otherwise be landfilled, but there is no
+computational handoff between the two categories — each is estimated from its
+own activity data.)
+
+### How the calculation works, step by step
+
+1. Establish the mass of waste composted for each year:
+   - **Measured years (through the last year ASMM provides, currently 2018):**
+     take the reported quantity directly from `epa_asmm_composted`.
+   - **Extrapolated years (after the last measured year):** hold the
+     waste-per-person ratio fixed at its value in the last measured year
+     (last-measured-year mass ÷ that year's `census_population`), and multiply it
+     by each later year's `census_population` to project that year's mass
+     composted. (The ratio is frozen at the last measured year, not recomputed
+     from each prior extrapolated year — those are equivalent, but freezing is
+     the clearer statement of intent.)
+2. Apply the CH₄ emission factor to the mass composted to estimate methane
+   emissions.
+3. Apply the N₂O emission factor to the mass composted to estimate nitrous oxide
+   emissions.
+4. Apply the AR5 global warming potentials to express the totals as
+   CO₂-equivalent.
+
+### Rules and judgment calls
+
+- **Activity-data source by year:** waste composted is taken from
+  `epa_asmm_composted` for measured years and population-extrapolated (step 1)
+  for years after the last measured year. The boundary is "the last year ASMM
+  reports" (currently 2018), not a fixed calendar year — it moves forward if a
+  replacement activity-data source is adopted. This is the only conditional logic
+  in the category.
+- **Tier selection:** the IPCC default Tier 1 method is used because
+  facility-specific and nationwide data on composting methods and waste
+  types/amounts are not publicly available. Tier 1 applies across the entire
+  time series.
+
+### What this category produces (outputs)
+
+- CH₄ and N₂O emissions from composting, by year, totaled and arranged for the
+  inventory database, with CO₂-equivalent applied via the AR5 GWPs.
+
+### Uncertainty
+
+Uncertainty is estimated using IPCC Approach 1 (error propagation), as
+recommended for a Tier 1 method with default emission factors; a Monte Carlo
+approach may be adopted in a future edition. The two parameter uncertainties are
+combined via the IPCC error-propagation equation to a combined uncertainty of
+approximately ±58% on national emissions.
+
+| Parameter | Distribution | Range | Basis |
+|---|---|---|---|
+| IPCC default emission factors (CH₄, N₂O) | — | ±50% | IPCC 2006 default (Vol. 5, Ch. 4) |
+| waste composted (activity data) | — | ±30% | IPCC 2006 guidance |
+
+### Known changes and things to watch
+
+- The ASMM report was discontinued; its final edition covers 2018 data. After
+  the last measured year the mass composted is extrapolated from population
+  growth (step 1) rather than measured, until a replacement activity-data source
+  is identified.
+- The uncertainty method is currently the simple Approach 1 error propagation; a
+  move to Monte Carlo is flagged as a possible future improvement.
+
+### References
+
+- GHGIA 2026, Waste chapter, Composting section.
+- 2006 IPCC Guidelines, Vol. 5, Ch. 4 (Biological Treatment of Solid Waste),
+  Table 4.1; Vol. 1, Ch. 3 (uncertainty, error-propagation equation).
+- [ASMM and Census population data documentation].
+
+## The generated R code
+
+Everything below was generated from the narrative above, following the project's
+R conventions: a `{targets}` pipeline, `{pins}` for inter-stage handoff,
+`{syrinx}` for canonical-unit normalization at ingestion, tidyverse style, and
+unit logic confined to the ingestion and output boundaries so the calculation
+core is unitless.
+
+::: {.panel-tabset}
+
+### Pipeline (`_targets.R`)
+
+```r
+list(
+
+  ## Data Retrieval ----------------------------------------------------
+
+  tar_target(composting_waste,            pin_read(board, "composting_waste")),
+  tar_target(us_population,               pin_read(board, "us_population")),
+  tar_target(composting_emission_factors, pin_read(board, "composting_emission_factors")),
+  tar_target(gwp_ar5,                     pin_read(board, "gwp_ar5")),
+
+  ## Transform Data ----------------------------------------------------
+
+  tar_target(
+    composting_activity,
+    get_composting_activity(composting_waste, us_population)
+  ),
+
+  tar_target(
+    composting_emissions,
+    get_composting_emissions(composting_activity,
+                             composting_emission_factors,
+                             gwp_ar5)
+  ),
+
+  tar_target(
+    composting_invdb,
+    format_composting_invdb(composting_emissions)
+  )
+)
+```
+
+### Activity (`get_composting_activity.R`)
+
+```r
+#' Mass of waste composted by year, in canonical units (Gg).
+#'
+#' Measured years come directly from ASMM. Years after the last measured year
+#' are extrapolated by holding the waste-per-person ratio fixed at its
+#' last-measured-year value and scaling by population (narrative step 1).
+get_composting_activity <- function(composting_waste, us_population,
+                                    last_measured_year = 2018) {
+
+  pop <- dplyr::select(us_population, year, population)
+
+  measured <- composting_waste |>
+    dplyr::filter(year <= last_measured_year) |>
+    dplyr::select(year, waste_composted)
+
+  # Frozen waste-per-person ratio at the last measured year
+  ratio <- measured |>
+    dplyr::filter(year == last_measured_year) |>
+    dplyr::left_join(pop, by = "year") |>
+    dplyr::summarise(r = waste_composted / population) |>
+    dplyr::pull(r)
+
+  extrapolated <- pop |>
+    dplyr::filter(year > last_measured_year) |>
+    dplyr::mutate(waste_composted = ratio * population) |>
+    dplyr::select(year, waste_composted)
+
+  dplyr::bind_rows(measured, extrapolated) |>
+    dplyr::arrange(year)
+}
+```
+
+### Emissions (`get_composting_emissions.R`)
+
+```r
+#' CH4 and N2O emissions from composting (Gg), plus CO2-equivalent.
+#'
+#' Activity (Gg waste) x emission factor (Gg gas / Gg waste) -> Gg gas.
+#' Every input is canonical, so this calculation carries no units.
+get_composting_emissions <- function(composting_activity,
+                                     composting_emission_factors,
+                                     gwp_ar5) {
+
+  composting_activity |>
+    tidyr::expand_grid(composting_emission_factors) |>   # year x {ch4, n2o}
+    dplyr::mutate(emissions = waste_composted * ef) |>
+    dplyr::left_join(gwp_ar5, by = "gas") |>
+    dplyr::mutate(emissions_co2e = emissions * gwp) |>
+    dplyr::select(year, gas, emissions, emissions_co2e)
+}
+```
+
+### Output (`format_composting_invdb.R`)
+
+```r
+#' Arrange composting emissions into the InvDB output structure.
+#' Emissions are Gg internally; converted to Tg at the output boundary.
+format_composting_invdb <- function(composting_emissions) {
+  composting_emissions |>
+    dplyr::mutate(
+      year           = forcats::as_factor(year),
+      category       = "composting",
+      sector         = "waste",
+      emissions_tg   = emissions / 1e3,        # Gg -> Tg, output boundary
+      emissions_co2e = emissions_co2e / 1e3    # Gg CO2e -> Tg CO2e (MMT)
+    ) |>
+    dplyr::select(category, sector, year, gas, emissions_tg, emissions_co2e) |>
+    dplyr::arrange(gas, year)
+  ## InvDB
+}
+```
+
+### Ingestion
+
+Each data source has a paired metadata file and ingestion script. Unit
+normalization happens here, at the ingestion boundary — including the
+emission factors, whose `g / kg` basis is scale-sensitive and so is converted to
+the canonical `Gg / Gg` basis rather than carried as a dimensionless constant.
+
+**Activity data**
+
+```yaml
+# composting_waste_metadata.yml
+dataset_id:    composting_waste
+source:        "EPA Advancing Sustainable Materials Management: Facts and Figures"
+native_unit:   thousand_short_tons
+canonical_unit: Gg
+moisture_basis: wet
+time_coverage: "1990-2018"
+```
+
+```r
+# composting_waste_ingest.R
+# thousand short tons (wet) -> Gg (canonical), long by year.
+composting_waste_ingest <- function(path, metadata) {
+  readr::read_csv(path, show_col_types = FALSE) |>
+    pre_clean() |>
+    apply_metadata_labels(metadata) |>
+    to_canonical_all() |>                 # waste_composted: thousand_short_tons -> Gg
+    dplyr::transmute(year = as.integer(year), waste_composted)
+}
+```
+
+**Emission factors**
+
+```yaml
+# composting_emission_factors_metadata.yml
+dataset_id:    composting_emission_factors
+source:        "2006 IPCC Guidelines Vol. 5 Ch. 4 Table 4.1"
+moisture_basis: wet
+factors:
+  ch4: { value: 4.0, native_basis: g_per_kg, canonical_basis: Gg_per_Gg }
+  n2o: { value: 0.3, native_basis: g_per_kg, canonical_basis: Gg_per_Gg }
+```
+
+```r
+# composting_emission_factors_ingest.R
+# g emission / kg waste  ->  Gg emission / Gg waste.
+# g/kg is scale-SENSITIVE (different unit top and bottom), so it is normalized
+# here at ingestion, NOT carried as a dimensionless constant (standard v0.4 §5.1).
+composting_emission_factors_ingest <- function(metadata) {
+  tibble::tibble(
+    gas       = c("ch4", "n2o"),
+    ef_native = c(4.0, 0.3)
+  ) |>
+    dplyr::mutate(
+      # (1e-9 Gg/g) / (1e-6 Gg/kg) = 1e-3
+      ef = ef_native * 1e-3
+    ) |>
+    dplyr::select(gas, ef)
+}
+```
+
+:::
