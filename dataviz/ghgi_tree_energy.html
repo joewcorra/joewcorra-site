@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>GHGI Energy Sector — Interactive Source Tree</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --ink:        #1B1A17;
+    --ink-2:      #242220;
+    --bone:       #E7E0CF;
+    --bone-dim:   #A79E8B;
+    --brass:      #C9A227;
+    --co2:        #6E8FAE;
+    --ch4:        #D9A536;
+    --n2o:        #B6607A;
+    --fgas:       #4E9C8F;
+    --line:       rgba(231,224,207,0.28);
+
+    --serif: 'IBM Plex Serif', Georgia, serif;
+    --sans:  'IBM Plex Sans', system-ui, sans-serif;
+    --mono:  'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  * { box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse at 50% -10%, #2A2723 0%, var(--ink) 55%);
+    color: var(--bone);
+    font-family: var(--sans);
+    padding: 56px 24px 90px;
+  }
+
+  .frame{ max-width: 1180px; margin: 0 auto; }
+
+  /* ---------- Header ---------- */
+  header{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 1px solid rgba(231,224,207,0.18);
+    padding-bottom: 22px;
+    margin-bottom: 64px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    color: var(--brass);
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+  h1{
+    font-family: var(--serif);
+    font-weight: 700;
+    font-size: clamp(30px, 4vw, 44px);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  h1 em{ font-style: normal; color: var(--brass); }
+  .meta{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--bone-dim);
+    text-align: right;
+    line-height: 1.6;
+  }
+
+  /* ---------- Legend ---------- */
+  .legend{
+    display:flex; gap: 22px; flex-wrap: wrap;
+    margin-bottom: 56px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--bone-dim);
+  }
+  .legend-item{ display:flex; align-items:center; gap:8px; }
+  .legend-swatch{
+    width: 11px; height: 11px; border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0,0,0,0.3) inset;
+  }
+
+  /* ---------- Tree ---------- */
+  /* Canonical pure-CSS org-chart pattern: each <li> draws its own
+     half-width top connector, and each nested <ul> draws a single
+     centered stub connecting up to its parent. */
+
+  .tree, .tree ul{
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .tree ul{
+    position: relative;
+    padding-top: 46px;
+  }
+
+  .tree li{
+    position: relative;
+    text-align: center;
+    padding: 46px 22px 0;
+  }
+
+  .tree ul::before{
+    content: "";
+    position: absolute;
+    top: 0; left: 50%;
+    width: 0; height: 46px;
+    border-left: 1px solid var(--line);
+  }
+
+  .tree li::before,
+  .tree li::after{
+    content: "";
+    position: absolute;
+    top: 46px; right: 50%;
+    width: 50%; height: 0;
+    border-top: 1px solid var(--line);
+  }
+  .tree li::after{
+    right: auto; left: 50%;
+  }
+
+  .tree li:first-child::before{ border: none; }
+  .tree li:last-child::after{ border: none; }
+
+  .tree li:only-child::before,
+  .tree li:only-child::after{ display: none; }
+  .tree li:only-child{ padding-top: 0; }
+
+  .tree > li{ padding-top: 0; }
+  .tree > li::before,
+  .tree > li::after{ display: none; }
+
+  /* ---------- Node card (category level) ---------- */
+  .node{
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 18px;
+    border: 1px solid rgba(231,224,207,0.22);
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--ink-2), var(--ink));
+    min-width: 148px;
+    position: relative;
+  }
+  .node.root{
+    border-color: var(--brass);
+    background: linear-gradient(180deg, #2E2A1E, var(--ink));
+  }
+  .code{
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--brass);
+  }
+  .label{
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.2;
+  }
+  .root .label{ font-size: 20px; }
+  .sub{
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--bone-dim);
+  }
+
+  /* ---------- Leaf: specimen tag ---------- */
+  .tag{
+    display:inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 138px;
+    padding: 16px 10px 12px;
+    background: var(--ink-2);
+    border-radius: 3px;
+    border-top: 3px solid var(--tag-color, var(--brass));
+    position: relative;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+  }
+  .tag::before{
+    content:"";
+    position:absolute; top: -3px; left: 50%;
+    width: 7px; height: 7px;
+    background: var(--ink);
+    border: 2px solid var(--tag-color, var(--brass));
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .icon{
+    width: 34px; height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tag-color, var(--brass));
+    font-size: 22px;
+  }
+  .tag-name{
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 12.5px;
+    line-height: 1.25;
+  }
+  .tag-code{
+    font-family: var(--mono);
+    font-size: 9.5px;
+    color: var(--bone-dim);
+  }
+  .gas-chips{
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .chip{
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 2px 6px;
+    border-radius: 8px;
+    background: var(--c);
+    color: var(--ink);
+  }
+
+  /* ---------- Interactivity ---------- */
+  .has-children{ cursor: pointer; }
+  .has-children:hover{ border-color: var(--brass); }
+  .tag.has-children:hover{ box-shadow: 0 6px 14px rgba(0,0,0,0.35), 0 0 0 1px var(--brass) inset; }
+
+  .toggle-badge{
+    position: absolute;
+    bottom: -9px; left: 50%;
+    transform: translateX(-50%);
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--brass);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: center;
+    box-shadow: 0 0 0 3px var(--ink-2);
+    user-select: none;
+  }
+
+  .tree li.collapsed > ul{ display: none; }
+
+  footer{
+    max-width: 1180px; margin: 70px auto 0;
+    border-top: 1px solid rgba(231,224,207,0.18);
+    padding-top: 18px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--bone-dim);
+    display:flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="frame">
+
+  <header>
+    <div>
+      <p class="eyebrow">U.S. GHG Inventory — Prototype Panel</p>
+      <h1>Energy Sector <em>Source Tree</em></h1>
+    </div>
+    <div class="meta">
+      CRF Category 1 · Energy<br>Border/icon = dominant gas · chips = full reported profile<br>Click any node with a badge to expand / collapse
+    </div>
+  </header>
+
+  <div class="legend">
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--co2)"></span>CO₂ — carbon dioxide</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--ch4)"></span>CH₄ — methane</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--n2o)"></span>N₂O — nitrous oxide</div>
+    <div class="legend-item"><span class="legend-swatch" style="background:var(--fgas)"></span>F-gases — HFCs / PFCs / SF₆</div>
+  </div>
+
+  <ul class="tree">
+<li>
+<div class="node root">
+  <span class="code">CRF 1</span>
+  <span class="label">Energy</span>
+  
+</div>
+<ul class="children">
+<li>
+<div class="node">
+  <span class="code">1.A.1 / 1.A.2</span>
+  <span class="label">Stationary<br>Combustion</span>
+  <span class="sub">fuel burned in place</span>
+</div>
+<ul class="children">
+<li>
+<div class="tag" style="--tag-color:var(--co2)">
+  <div class="icon"><i class="fa-solid fa-industry"></i></div>
+  <span class="tag-name">Coal Power Plants</span>
+  <span class="tag-code">1.A.1.a</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--co2)">CO₂</span>
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+<span class="chip" style="--c:var(--n2o)">N₂O</span>
+</div>
+</div>
+
+</li>
+<li>
+<div class="tag" style="--tag-color:var(--co2)">
+  <div class="icon"><i class="fa-solid fa-fire"></i></div>
+  <span class="tag-name">Natural Gas Turbines</span>
+  <span class="tag-code">1.A.1.a</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--co2)">CO₂</span>
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+<span class="chip" style="--c:var(--n2o)">N₂O</span>
+</div>
+</div>
+
+</li>
+<li>
+<div class="tag" style="--tag-color:var(--co2)">
+  <div class="icon"><i class="fa-solid fa-house"></i></div>
+  <span class="tag-name">Residential Heating</span>
+  <span class="tag-code">1.A.4.b.i</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--co2)">CO₂</span>
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+<span class="chip" style="--c:var(--n2o)">N₂O</span>
+</div>
+</div>
+
+</li>
+</ul>
+</li>
+<li>
+<div class="node">
+  <span class="code">1.A.3</span>
+  <span class="label">Mobile<br>Combustion</span>
+  <span class="sub">transport fuel use</span>
+</div>
+<ul class="children">
+<li>
+<div class="node">
+  <span class="code">1.A.3.b</span>
+  <span class="label">Passenger<br>Cars</span>
+  <span class="sub">on-road light duty</span>
+</div>
+<ul class="children">
+<li>
+<div class="tag" style="--tag-color:var(--co2)">
+  <div class="icon"><i class="fa-solid fa-car"></i></div>
+  <span class="tag-name">Light-Duty Autos</span>
+  <span class="tag-code">1.A.3.b.i</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--co2)">CO₂</span>
+<span class="chip" style="--c:var(--n2o)">N₂O</span>
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+</div>
+</div>
+
+</li>
+<li>
+<div class="tag" style="--tag-color:var(--co2)">
+  <div class="icon"><i class="fa-solid fa-truck"></i></div>
+  <span class="tag-name">Light-Duty Trucks</span>
+  <span class="tag-code">1.A.3.b.ii</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--co2)">CO₂</span>
+<span class="chip" style="--c:var(--n2o)">N₂O</span>
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+</div>
+</div>
+
+</li>
+<li>
+<div class="tag" style="--tag-color:var(--co2)">
+  <div class="icon"><i class="fa-solid fa-motorcycle"></i></div>
+  <span class="tag-name">Motorcycles</span>
+  <span class="tag-code">1.A.3.b.iv</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--co2)">CO₂</span>
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+<span class="chip" style="--c:var(--n2o)">N₂O</span>
+</div>
+</div>
+
+</li>
+</ul>
+</li>
+<li>
+<div class="tag" style="--tag-color:var(--co2)">
+  <div class="icon"><i class="fa-solid fa-plane"></i></div>
+  <span class="tag-name">Aviation</span>
+  <span class="tag-code">1.A.3.a</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--co2)">CO₂</span>
+<span class="chip" style="--c:var(--n2o)">N₂O</span>
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+</div>
+</div>
+
+</li>
+<li>
+<div class="tag" style="--tag-color:var(--co2)">
+  <div class="icon"><i class="fa-solid fa-tractor"></i></div>
+  <span class="tag-name">Lawn &amp; Garden Equip.</span>
+  <span class="tag-code">1.A.2.g.vii</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--co2)">CO₂</span>
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+<span class="chip" style="--c:var(--n2o)">N₂O</span>
+</div>
+</div>
+
+</li>
+</ul>
+</li>
+<li>
+<div class="node">
+  <span class="code">1.B</span>
+  <span class="label">Fugitive<br>Emissions</span>
+  <span class="sub">leaks &amp; venting</span>
+</div>
+<ul class="children">
+<li>
+<div class="tag" style="--tag-color:var(--ch4)">
+  <div class="icon"><i class="fa-solid fa-gas-pump"></i></div>
+  <span class="tag-name">Natural Gas Systems</span>
+  <span class="tag-code">1.B.2.b</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+<span class="chip" style="--c:var(--co2)">CO₂</span>
+</div>
+</div>
+
+</li>
+<li>
+<div class="tag" style="--tag-color:var(--ch4)">
+  <div class="icon"><i class="fa-solid fa-mountain"></i></div>
+  <span class="tag-name">Coal Mining</span>
+  <span class="tag-code">1.B.1.a</span>
+  <div class="gas-chips">
+<span class="chip" style="--c:var(--ch4)">CH₄</span>
+</div>
+</div>
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <footer>
+    <span>Layout, icon & interaction language only, figures not shown to scale</span>
+    <span>Source categories per IPCC/CRF nomenclature · U.S. GHGI</span>
+  </footer>
+
+</div>
+
+<script>
+  document.querySelectorAll('.tree li').forEach(function (li) {
+    var label = li.querySelector(':scope > .node, :scope > .tag');
+    var childList = li.querySelector(':scope > ul');
+    if (!label || !childList) return;
+
+    label.classList.add('has-children');
+
+    var badge = document.createElement('span');
+    badge.className = 'toggle-badge';
+    badge.textContent = '\u2212';
+    label.appendChild(badge);
+
+    label.addEventListener('click', function () {
+      var collapsed = li.classList.toggle('collapsed');
+      badge.textContent = collapsed ? '+' : '\u2212';
+    });
+  });
+</script>
+</body>
+</html>

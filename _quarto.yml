@@ -11,6 +11,8 @@ website:
         text: Home
       - href: projects.qmd
         text: Projects
+      - href: dataviz.qmd
+        text: Dataviz
       - href: publications.qmd
         text: Publications
       - href: technical_writing.qmd

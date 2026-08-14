@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>18 Regulated HFCs — AIM Act / Kigali Amendment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --bg-deep:      #0B1929;
+    --bg-mid:       #14283D;
+    --sky:          #DCE8F0;
+    --sky-dim:      #8FA7BC;
+    --hairline:     rgba(220,232,240,0.14);
+    --teal:         #4FA9A0;
+    --amber:        #E8A23D;
+    --ember:        #D9483A;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(79,169,160,0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg-deep) 0%, #0E1F31 40%, var(--bg-mid) 100%);
+    color:var(--sky);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{color:inherit;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px 80px;}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:72px 24px 56px;
+    text-align:center;
+    border-bottom:1px solid var(--hairline);
+    position:relative;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    font-size:12px;
+    color:var(--sky-dim);
+    margin-bottom:22px;
+  }
+  .eyebrow span{color:var(--amber);}
+  .hero-number{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:clamp(72px,14vw,148px);
+    line-height:0.9;
+    margin:0;
+    background:linear-gradient(180deg, var(--sky) 0%, var(--sky-dim) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .hero-label{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:clamp(20px,4vw,32px);
+    margin:4px 0 18px;
+  }
+  .hero-sub{
+    max-width:560px;
+    margin:0 auto;
+    color:var(--sky-dim);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+
+  /* ---------- GWP LEGEND ---------- */
+  .legend{
+    max-width:640px;
+    margin:44px auto 0;
+    padding:18px 22px;
+    border:1px solid var(--hairline);
+    border-radius:10px;
+    background:rgba(220,232,240,0.03);
+  }
+  .legend-title{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--sky-dim);
+    margin-bottom:10px;
+  }
+  .legend-bar{
+    height:10px;
+    border-radius:6px;
+    background:linear-gradient(90deg, var(--teal), var(--amber), var(--ember));
+    position:relative;
+  }
+  .legend-ticks{
+    display:flex; justify-content:space-between;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    color:var(--sky-dim);
+    margin-top:8px;
+  }
+  .legend-caption{
+    font-size:12px;
+    color:var(--sky-dim);
+    margin-top:10px;
+    line-height:1.5;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section.category{
+    margin-top:56px;
+  }
+  .cat-head{
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    border-bottom:1px solid var(--hairline);
+    padding-bottom:12px;
+    margin-bottom:22px;
+  }
+  .cat-index{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    color:var(--sky-dim);
+  }
+  .cat-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:22px;
+    margin:0;
+  }
+  .cat-note{
+    margin-left:auto;
+    font-size:12px;
+    color:var(--sky-dim);
+    text-align:right;
+    max-width:260px;
+    line-height:1.4;
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(220px, 1fr));
+    gap:14px;
+  }
+
+  .card{
+    border:1px solid var(--hairline);
+    border-radius:10px;
+    padding:16px 16px 14px;
+    background:rgba(220,232,240,0.025);
+    position:relative;
+    overflow:hidden;
+    transition:transform 0.18s ease, border-color 0.18s ease;
+  }
+  .card:hover{
+    transform:translateY(-2px);
+    border-color:rgba(220,232,240,0.32);
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:3px;
+    background:var(--tint);
+  }
+  .card-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:8px;
+  }
+  .card-name{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:15px;
+    color:var(--sky);
+  }
+  .card-gwp{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    padding:2px 7px;
+    border-radius:20px;
+    color:var(--bg-deep);
+    background:var(--tint);
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .card-formula{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11.5px;
+    color:var(--sky-dim);
+    margin-bottom:10px;
+  }
+  .card-use{
+    font-size:12.5px;
+    line-height:1.5;
+    color:var(--sky);
+  }
+  .card-secondary{
+    margin-top:8px;
+    font-size:10.5px;
+    color:var(--sky-dim);
+    font-style:italic;
+  }
+
+  /* ---------- PRODUCTION PATHWAYS ---------- */
+  section.pathways{
+    margin-top:56px;
+  }
+  .pathway-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(340px, 1fr));
+    gap:16px;
+  }
+  .pathway-card{
+    border:1px solid var(--hairline);
+    border-radius:10px;
+    padding:18px 18px 16px;
+    background:rgba(220,232,240,0.025);
+  }
+  .pw-name{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:16px;
+    color:var(--sky);
+  }
+  .pw-chem{
+    font-size:11.5px;
+    color:var(--sky-dim);
+    margin-bottom:14px;
+  }
+  .pw-field{
+    margin-bottom:10px;
+  }
+  .pw-label{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--sky-dim);
+    margin-bottom:5px;
+  }
+  .chip{
+    display:inline-block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    padding:3px 9px;
+    border-radius:20px;
+    margin:0 5px 5px 0;
+    white-space:nowrap;
+  }
+  .chip-feedstock{ background:rgba(79,169,160,0.15); color:var(--teal); border:1px solid rgba(79,169,160,0.4); }
+  .chip-neutral{ background:rgba(220,232,240,0.06); color:var(--sky-dim); border:1px solid var(--hairline); }
+  .chip-coproduct{ background:rgba(232,162,61,0.15); color:var(--amber); border:1px solid rgba(232,162,61,0.4); }
+  .chip-byproduct{ background:rgba(217,72,58,0.15); color:var(--ember); border:1px solid rgba(217,72,58,0.4); }
+  .pw-process{
+    font-size:12px;
+    line-height:1.5;
+    color:var(--sky-dim);
+    font-style:italic;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid var(--hairline);
+  }
+
+  /* ---------- FIGURE (R / ggplot2 embed) ---------- */
+  section.figure{
+    margin-top:64px;
+  }
+  .fig-head{
+    border-bottom:1px solid var(--hairline);
+    padding-bottom:12px;
+    margin-bottom:22px;
+  }
+  .fig-eyebrow{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--sky-dim);
+    margin-bottom:6px;
+  }
+  .fig-title{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:600;
+    font-size:22px;
+    margin:0;
+  }
+  .fig-frame{
+    border:1px solid var(--hairline);
+    border-radius:10px;
+    overflow:hidden;
+    background:var(--bg-mid);
+  }
+  .fig-frame img{
+    display:block;
+    width:100%;
+    height:auto;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    margin-top:70px;
+    padding-top:24px;
+    border-top:1px solid var(--hairline);
+    font-size:11.5px;
+    color:var(--sky-dim);
+    line-height:1.7;
+  }
+  footer strong{color:var(--sky);}
+
+  @media (max-width:600px){
+    header.hero{padding:52px 18px 40px;}
+    .cat-head{flex-wrap:wrap;}
+    .cat-note{margin-left:0; text-align:left; max-width:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .card{transition:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">American Innovation &amp; Manufacturing Act &nbsp;·&nbsp; <span>40 CFR Part 84, Appendix A</span></div>
+  <p class="hero-number">18</p>
+  <p class="hero-label">Regulated HFCs</p>
+  <p class="hero-sub">The same eighteen hydrofluorocarbons phased down under the AIM Act and the Kigali Amendment to the Montreal Protocol — grouped here by where they're actually used, and colored by global warming potential (exchange value).</p>
+
+  <div class="legend">
+    <div class="legend-title">Exchange Value (100-yr GWP) — low to high</div>
+    <div class="legend-bar"></div>
+    <div class="legend-ticks"><span>53</span><span>~1,500</span><span>14,800</span></div>
+    <div class="legend-caption">Card accent color reflects each substance's exchange value on a log scale — teal is comparatively mild, ember is the most potent (HFC-23, HFC-236fa).</div>
+  </div>
+</header>
+
+<div class="wrap" id="sections"></div>
+
+<div class="wrap">
+  <section class="pathways">
+    <div class="cat-head">
+      <span class="cat-index">07</span>
+      <h2 class="cat-title">Production Pathways</h2>
+      <div class="cat-note">Feedstocks, catalysts, and reaction byproducts for a subset of substances</div>
+    </div>
+    <div class="pathway-grid" id="pathway-grid"></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section class="figure">
+    <div class="fig-head">
+      <div class="fig-eyebrow">R · ggplot2</div>
+      <h2 class="fig-title">Ranked by GWP</h2>
+    </div>
+    <div class="fig-frame">
+      <img src="hfc_gwp_dotplot.svg" alt="Dot plot of the 18 AIM Act HFCs ranked by exchange value (GWP), grouped by use category">
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <footer>
+    <strong>Source:</strong> Exchange values per 40 CFR Part 84, Appendix A (86 FR 55222). Use assignments compiled from EPA SNAP substitute listings and AIM Act Technology Transitions rulemakings (40 CFR Part 84, Subpart D). Several substances marked "minor / niche" see little to no current U.S. commercial use — they're regulated primarily as isomers or historical refrigerant-blend components. This chart covers primary end-uses only; feedstock and precursor relationships are intentionally out of scope here.
+  </footer>
+</div>
+
+<script>
+const data = [
+  {
+    category: "Refrigeration & Air Conditioning",
+    note: "Largest use category by volume — ~75% of US HFC use",
+    items: [
+      {name:"HFC-32", formula:"CH₂F₂", gwp:675, use:"Residential & light-commercial AC refrigerant (R-32); primary component of R-410A blend."},
+      {name:"HFC-125", formula:"CHF₂CF₃", gwp:3500, use:"Refrigerant blend component in R-410A, R-404A, R-507A.", secondary:"Also used in fire suppression"},
+      {name:"HFC-134a", formula:"CH₂FCF₃", gwp:1430, use:"Mobile air conditioning (MVAC) and stationary refrigeration refrigerant.", secondary:"Also used in aerosols & medical inhalers"},
+      {name:"HFC-143a", formula:"CH₃CF₃", gwp:4470, use:"Low-temperature refrigerant blend component (R-404A, R-507A)."},
+      {name:"HFC-134", formula:"CHF₂CHF₂", gwp:1100, use:"Minor refrigerant blend component; limited commercial use."},
+      {name:"HFC-143", formula:"CH₂FCHF₂", gwp:353, use:"Minor refrigerant blend component; limited commercial use."},
+    ]
+  },
+  {
+    category: "Foam Blowing",
+    note: "Rigid polyurethane insulation, building & appliance foams",
+    items: [
+      {name:"HFC-245fa", formula:"CF₃CH₂CHF₂", gwp:1030, use:"Blowing agent for rigid polyurethane insulation foam."},
+      {name:"HFC-365mfc", formula:"CF₃CH₂CF₂CH₃", gwp:794, use:"Foam blowing agent, typically blended with HFC-227ea."},
+      {name:"HFC-245ca", formula:"CH₂FCF₂CHF₂", gwp:693, use:"Historic foam blowing agent; largely displaced in current production."},
+    ]
+  },
+  {
+    category: "Fire Suppression",
+    note: "Clean-agent systems for occupied spaces & sensitive equipment",
+    items: [
+      {name:"HFC-227ea", formula:"CF₃CHFCF₃", gwp:3220, use:"Clean-agent fire suppression (marketed as FM-200).", secondary:"Also used in medical inhalers"},
+      {name:"HFC-236fa", formula:"CF₃CH₂CF₃", gwp:9810, use:"Fire suppression agent; specialty turbine/aerospace refrigerant."},
+    ]
+  },
+  {
+    category: "Aerosols & Medical",
+    note: "Propellants where ozone-safe, precision dosing matters",
+    items: [
+      {name:"HFC-152a", formula:"CH₃CHF₂", gwp:124, use:"Aerosol propellant; some foam blowing and mobile AC use."},
+    ]
+  },
+  {
+    category: "Solvents & Semiconductor",
+    note: "Electronics manufacturing and specialty process gas",
+    items: [
+      {name:"HFC-23", formula:"CHF₃", gwp:14800, use:"Semiconductor plasma etching and very-low-temperature refrigeration.", secondary:"Also an unintentional HCFC-22 production byproduct"},
+      {name:"HFC-43-10mee", formula:"C₅H₂F₁₀", gwp:1640, use:"Electronics cleaning solvent and heat-transfer fluid."},
+    ]
+  },
+  {
+    category: "Minor / Niche Use",
+    note: "Regulated as isomers of the above — little current US market presence",
+    items: [
+      {name:"HFC-41", formula:"CH₃F", gwp:92, use:"No significant current commercial application identified."},
+      {name:"HFC-152", formula:"CH₂FCH₂F", gwp:53, use:"No significant current commercial application identified."},
+      {name:"HFC-236cb", formula:"CH₂FCF₂CF₃", gwp:1340, use:"Minor refrigerant blend component; limited commercial use."},
+      {name:"HFC-236ea", formula:"CHF₂CHFCF₃", gwp:1370, use:"Minor refrigerant blend component; limited commercial use."},
+    ]
+  }
+];
+
+// log-scale color interpolation across teal -> amber -> ember
+function gwpColor(gwp){
+  const min = Math.log(53), max = Math.log(14800);
+  let t = (Math.log(gwp) - min) / (max - min);
+  t = Math.max(0, Math.min(1, t));
+
+  const stops = [
+    {t:0,   c:[79,169,160]},   // teal
+    {t:0.5, c:[232,162,61]},   // amber
+    {t:1,   c:[217,72,58]}     // ember
+  ];
+  let a = stops[0], b = stops[1];
+  if(t > 0.5){ a = stops[1]; b = stops[2]; }
+  const localT = a.t === 0 ? t/0.5 : (t-0.5)/0.5;
+  const c = a.c.map((v,i) => Math.round(v + (b.c[i]-v)*localT));
+  return `rgb(${c[0]},${c[1]},${c[2]})`;
+}
+
+// ---- Production pathway data (feedstocks, catalysts, byproducts) ----
+const pathways = [
+  {
+    product: "HFC-134a", chem: "1,1,1,2-Tetrafluoroethane",
+    feedstock: ["CHCl=CCl2", "CFC-113"],
+    catalysts: ["Cr2O3/Zn", "Cr2O3/Ni"],
+    intermediates: ["HCFC-133a", "CFC-113a", "CFC-114a"],
+    coproducts: ["HCFC-124", "HFC-143a"],
+    byproducts: ["HCl"],
+    process: "Catalytic vapor phase fluorination of trichloroethylene; catalytic transformation of CFC-113."
+  },
+  {
+    product: "HFC-125", chem: "Pentafluoroethane",
+    feedstock: ["CCl2=CCl2"],
+    catalysts: ["Cr2O3"],
+    intermediates: [],
+    coproducts: [],
+    byproducts: ["HCl"],
+    process: "Gaseous phase fluorination of tetrachloroethylene."
+  },
+  {
+    product: "HFC-32", chem: "Difluoromethane",
+    feedstock: ["CH2Cl2"],
+    catalysts: ["AlF3/Cr2O3", "Cr2O3/ZnO", "SnCl4", "Bi2O3-MnCl2", "Al2O3-Cr2O3"],
+    intermediates: [],
+    coproducts: [],
+    byproducts: ["HCl"],
+    process: "Liquid-phase catalytic fluorination of dichloromethane."
+  },
+  {
+    product: "HFC-152a", chem: "1,1-Difluoroethane",
+    feedstock: ["CH2=CHCl"],
+    catalysts: ["SnCl4", "NaF", "CsF", "NH4F"],
+    intermediates: ["HCFC-151a"],
+    coproducts: [],
+    byproducts: ["HCl"],
+    process: "Electrophilic hydrofluorination of chloroethylene."
+  },
+  {
+    product: "HFC-245fa", chem: "Pentafluoropropane",
+    feedstock: ["HCC-240fa"],
+    catalysts: ["Cr2O3/C"],
+    intermediates: [],
+    coproducts: ["HCFO-1233zd", "HFC-244fa", "HFO-1234ze"],
+    byproducts: ["HCl"],
+    process: "Liquid-phase catalytic fluorination of HCC-240fa."
+  },
+  {
+    product: "HFC-23b", chem: null,
+    feedstock: ["CHCl3", "HF"],
+    catalysts: ["SbCl5"],
+    intermediates: [],
+    coproducts: ["HCFC-22"],
+    byproducts: ["HCFC-21"],
+    process: "Catalytic fluorination."
+  },
+];
+
+function chipRow(items, cls){
+  if(!items || items.length === 0) return '';
+  return items.map(i => `<span class="chip ${cls}">${i}</span>`).join('');
+}
+
+const pwGrid = document.getElementById('pathway-grid');
+pathways.forEach(pw => {
+  const card = document.createElement('div');
+  card.className = 'pathway-card';
+
+  const chemLine = pw.chem ? `<div class="pw-chem">${pw.chem}</div>` : '<div class="pw-chem">&nbsp;</div>';
+
+  const fields = [
+    {label:"Feedstock", items:pw.feedstock, cls:"chip-feedstock"},
+    {label:"Catalysts", items:pw.catalysts, cls:"chip-neutral"},
+    {label:"Intermediate Products", items:pw.intermediates, cls:"chip-neutral"},
+    {label:"Co-Products", items:pw.coproducts, cls:"chip-coproduct"},
+    {label:"Byproducts", items:pw.byproducts, cls:"chip-byproduct"},
+  ].filter(f => f.items && f.items.length > 0);
+
+  const fieldsHtml = fields.map(f => `
+    <div class="pw-field">
+      <div class="pw-label">${f.label}</div>
+      ${chipRow(f.items, f.cls)}
+    </div>
+  `).join('');
+
+  card.innerHTML = `
+    <div class="pw-name">${pw.product}</div>
+    ${chemLine}
+    ${fieldsHtml}
+    <div class="pw-process">${pw.process}</div>
+  `;
+  pwGrid.appendChild(card);
+});
+
+const container = document.getElementById('sections');
+
+data.forEach((cat, ci) => {
+  const section = document.createElement('section');
+  section.className = 'category';
+
+  const head = document.createElement('div');
+  head.className = 'cat-head';
+  head.innerHTML = `
+    <span class="cat-index">${String(ci+1).padStart(2,'0')}</span>
+    <h2 class="cat-title">${cat.category}</h2>
+    <div class="cat-note">${cat.note}</div>
+  `;
+  section.appendChild(head);
+
+  const grid = document.createElement('div');
+  grid.className = 'card-grid';
+
+  cat.items.forEach(item => {
+    const color = gwpColor(item.gwp);
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.setProperty('--tint', color);
+    card.innerHTML = `
+      <div class="card-top">
+        <span class="card-name">${item.name}</span>
+        <span class="card-gwp">${item.gwp.toLocaleString()}</span>
+      </div>
+      <div class="card-formula">${item.formula}</div>
+      <div class="card-use">${item.use}</div>
+      ${item.secondary ? `<div class="card-secondary">${item.secondary}</div>` : ''}
+    `;
+    grid.appendChild(card);
+  });
+
+  section.appendChild(grid);
+  container.appendChild(section);
+});
+</script>
+
+</body>
+</html>

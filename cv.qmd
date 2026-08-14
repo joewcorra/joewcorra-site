@@ -120,8 +120,29 @@ across 202 sites.
     <em>Conservation Physiology.</em> 2021.
   </p>
   <p>
-    Urbanization mediates the effects of water quality and climate on a model aerial 
+    Urbanization mediates the effects of water quality and climate on a model aerial
     insectivorous bird. <em>Ecological Monographs.</em> 2021.
+  </p>
+</div>
+
+<div class="cv-section">
+  <h3>Awards</h3>
+  <p>
+    <strong>EPA Gold Medal Honor Award</strong><br/>
+    US EPA &nbsp;·&nbsp; 2024 &nbsp;·&nbsp; <em>ORD Reservoir Greenhouse Gas Emissions Team (FY2023)</em><br/>
+    <span style="font-size:0.92rem; color:#555;">
+      Awarded for work with the Intergovernmental Panel on Climate Change to establish a
+      standardized methodology for estimating greenhouse gas emissions from reservoirs,
+      for use by the global community.
+    </span>
+  </p>
+  <p>
+    <strong>Superior Accomplishment Recognition Award (S-Award)</strong><br/>
+    US EPA &nbsp;·&nbsp; 2025<br/>
+    <span style="font-size:0.92rem; color:#555;">
+      Recognized for leading the R-based redesign of the largest component of the GHG
+      Inventory and for managing development of a tool for corporate GHG emissions.
+    </span>
   </p>
 </div>
 ```
