@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Technical Writing – Joe Corra</title>
+<title>Dataviz – Joe Corra</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -103,7 +103,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./dataviz.html"> 
+    <a class="nav-link active" href="./dataviz.html" aria-current="page"> 
 <span class="menu-text">Dataviz</span></a>
   </li>  
   <li class="nav-item">
@@ -111,7 +111,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Publications</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./technical_writing.html" aria-current="page"> 
+    <a class="nav-link" href="./technical_writing.html"> 
 <span class="menu-text">Technical Writing</span></a>
   </li>  
   <li class="nav-item">
@@ -147,7 +147,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Technical Writing</h1>
+<h1 class="title">Dataviz</h1>
 </div>
 
 
@@ -164,25 +164,66 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="writing-list">
-<section id="from-methodology-narrative-to-code-a-worked-example" class="level4 writing-entry">
-<h4 class="anchored" data-anchor-id="from-methodology-narrative-to-code-a-worked-example">From Methodology Narrative to Code: A Worked Example</h4>
-<div class="writing-meta">
-<p><span class="writing-tag">Technical</span> <span class="writing-venue">2026</span></p>
-</div>
-<div class="writing-links">
-<p><a href="./posts/composting-example.html">Read →</a></p>
-</div>
-</section>
-<section id="interpretation-translating-methodology-to-code-at-scale" class="level4 writing-entry">
-<h4 class="anchored" data-anchor-id="interpretation-translating-methodology-to-code-at-scale">Interpretation: Translating Methodology to Code at Scale</h4>
-<div class="writing-meta">
-<p><span class="writing-tag">Technical</span> <span class="writing-venue">2026</span></p>
-</div>
-<div class="writing-links">
-<p><a href="./posts/ghg-skills.html">Read →</a></p>
-</div>
-</section>
+<p>A collection of data visualizations spanning static graphics and interactive explorables, built around environmental and regulatory datasets.</p>
+<div class="dataviz-grid">
+
+  <div class="dataviz-card">
+    <a href="dataviz/hfc_gwp_dotplot.png" target="_blank" class="dataviz-thumb">
+      <img src="dataviz/hfc_gwp_dotplot.png" alt="Dot plot of global warming potential values for the 18 AIM Act-regulated HFCs, grouped by primary use">
+    </a>
+    <span class="project-tag">Static · PNG</span>
+    <h4 class="anchored">GWP of AIM Act–Regulated HFCs</h4>
+    <p>
+      Dot plot of 100-yr GWP exchange values for the 18 HFCs regulated under the
+      AIM Act, grouped by primary end use — refrigeration, foam blowing, fire
+      suppression, and more — per 40 CFR Part 84, Appendix A.
+    </p>
+    <div class="card-links">
+      <a href="dataviz/hfc_gwp_dotplot.png" target="_blank">View full size →</a>
+    </div>
+  </div>
+
+  <div class="dataviz-card">
+    <a href="dataviz/sankey_shipbreaking.png" target="_blank" class="dataviz-thumb">
+      <img src="dataviz/sankey_shipbreaking.png" alt="Sankey diagram of ship ownership country flowing to shipbreaking destination country">
+    </a>
+    <span class="project-tag">Static · PNG</span>
+    <h4 class="anchored">Ship Graveyards</h4>
+    <p>
+      Sankey diagram tracing beneficial owner country to shipbreaking
+      destination, 2012–2025, with beaching-method yards in India, Pakistan,
+      and Bangladesh highlighted. Data: NGO Shipbreaking Platform.
+    </p>
+    <div class="card-links">
+      <a href="dataviz/sankey_shipbreaking.png" target="_blank">View full size →</a>
+    </div>
+  </div>
+
+  <div class="dataviz-card">
+    <span class="project-tag">Interactive · HTML</span>
+    <h4 class="anchored">GHGI Energy Sector — Source Tree</h4>
+    <p>
+      Explorable tree of U.S. Greenhouse Gas Inventory energy sector source
+      categories, built to navigate the hierarchy of emission sources feeding
+      into the national inventory.
+    </p>
+    <div class="card-links">
+      <a href="dataviz/ghgi_tree_energy.html" target="_blank">Open interactive →</a>
+    </div>
+  </div>
+
+  <div class="dataviz-card">
+    <span class="project-tag">Interactive · HTML</span>
+    <h4 class="anchored">18 Regulated HFCs</h4>
+    <p>
+      Infographic profiling the 18 HFCs regulated under the AIM Act / Kigali
+      Amendment, with GWP values and end-use context for each substance.
+    </p>
+    <div class="card-links">
+      <a href="dataviz/hfc_infographic.html" target="_blank">Open interactive →</a>
+    </div>
+  </div>
+
 </div>
 
 
