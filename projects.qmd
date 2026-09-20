@@ -10,6 +10,22 @@ data quantification, reproducible workflows, and GHG inventory methods.
 
   <div class="project-card">
     <span class="project-tag">R Package</span>
+    <h4>co2e</h4>
+    <p>
+      Curated IPCC Global Warming Potential (GWP) values, gas name 
+      standardization, and CO2-equivalent conversion for R. Scope covers 
+      single substances only; refrigerant blends and UNFCCC reporting codes 
+      are deferred for a future release. Submitted to CRAN in Aug 2026 and
+      awaiting approval. 
+    </p>
+    <div class="card-links">
+      <a href="https://github.com/joewcorra/co2e">GitHub →</a>
+      <!-- Add pkgdown site link when available -->
+    </div>
+  </div>
+  
+  <div class="project-card">
+    <span class="project-tag">R Package</span>
     <h4>Syrinx</h4>
     <p>
       Data quality control infrastructure for GHG inventory workflows. Uses a 
@@ -50,7 +66,7 @@ data quantification, reproducible workflows, and GHG inventory methods.
       of reproducible inventory workflows.
     </p>
     <div class="card-links">
-      <a href="https://github.com/joewcorra/claude-skills">GitHub →</a>
+      <a href="https://github.com/joewcorra/corra_claude_skills/tree/main/r-methodology-narrator">GitHub →</a>
     </div>
   </div>
 
@@ -63,7 +79,7 @@ data quantification, reproducible workflows, and GHG inventory methods.
       the gap between methodology text and reproducible code.
     </p>
     <div class="card-links">
-      <a href="https://github.com/joewcorra/claude-skills">GitHub →</a>
+      <a href="https://github.com/joewcorra/corra_claude_skills/tree/main/ghg-methodology-parser">GitHub →</a>
     </div>
   </div>
 
@@ -76,7 +92,7 @@ data quantification, reproducible workflows, and GHG inventory methods.
       audit-ready inventory workflows.
     </p>
     <div class="card-links">
-      <a href="https://github.com/joewcorra/claude-skills">GitHub →</a>
+      <a href="https://github.com/joewcorra/corra_claude_skills/tree/main/r-ghg-coder">GitHub →</a>
     </div>
   </div>
 
